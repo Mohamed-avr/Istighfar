@@ -1,8 +1,11 @@
 import { Link, Stack } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useSettings } from '@/contexts/SettingsContext';
+
+
 
 export default function NotFoundScreen() {
+  const { colors, t } = useSettings();
   return (
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
@@ -10,7 +13,7 @@ export default function NotFoundScreen() {
         <Text style={styles.text}>This screen doesn't exist.</Text>
         <Link href="/" style={styles.link}>
           <Text style={{
-            color:Colors.text
+            color:colors.text
           }} >Go to home screen! ....</Text>
         </Link>
       </View>

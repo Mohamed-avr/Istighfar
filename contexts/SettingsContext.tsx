@@ -43,17 +43,17 @@ const themes: Record<Theme, ThemeColors> = {
     error: '#EF4444',
   },
   islamic: {
-    background: '#F0F9F0',
-    surface: '#FFFFFF',
-    primary: '#059669',
-    secondary: '#047857',
-    text: '#064E3B',
-    textSecondary: '#065F46',
-    border: '#D1FAE5',
-    success: '#059669',
-    warning: '#D97706',
-    error: '#DC2626',
-  },
+    background: '#FDF6EC',   // light cream (bright, high contrast base)
+    surface: '#FFFFFF',      // pure white for cards / elevated areas
+    primary: '#7B341E',      // rich dark brown (strong accent)
+    secondary: '#B45309',    // warm amber-brown for secondary highlights
+    text: '#3F1D0B',         // very dark brown (almost black) for readability
+    textSecondary: '#5C2E0E',// medium-dark brown for secondary text
+    border: '#E6D3B3',       // light sand beige for clear separation
+    success: '#15803D',      // Islamic green (contrast with browns)
+    warning: '#C2410C',      // strong burnt orange (alert, high visibility)
+    error: '#991B1B',        // deep red (error, easy to notice)
+  }
 };
 
 const translations = {

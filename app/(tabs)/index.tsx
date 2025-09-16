@@ -4,9 +4,7 @@ import { Calendar, TrendingUp, Award, Plus, RotateCcw } from 'lucide-react-nativ
 import { Stack, useFocusEffect } from 'expo-router';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
 import { IstighfarStorage } from '@/services/IstighfarStorage';
-
 import { useSettings } from '@/contexts/SettingsContext';
-
 
 export default function HomeScreen() {
   const { colors, t } = useSettings();
