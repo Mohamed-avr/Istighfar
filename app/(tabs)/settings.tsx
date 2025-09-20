@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Globe, Palette, Check } from 'lucide-react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSettings, Language, Theme } from '@/contexts/SettingsContext';
 
 export default function SettingsScreen() {
-  const { language, theme, colors, t, setLanguage, setTheme } = useSettings();
+  const { language, theme, colors, t, setLanguage, setTheme, direction, setDirection } = useSettings();
+
 
   const languageOptions: { value: Language; label: string }[] = [
     { value: 'en', label: t('english') },
@@ -14,13 +16,15 @@ export default function SettingsScreen() {
   const themeOptions: { value: Theme; label: string }[] = [
     { value: 'light', label: t('lightTheme') },
     { value: 'dark', label: t('darkTheme') },
-    { value: 'islamic', label: t('islamicTheme') },
+    // { value: 'islamic', label: t('islamicTheme') }, Islamic theme option
   ];
 
   const styles = createStyles(colors);
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <SafeAreaView style={[styles.container, {
+      direction: direction,
+    }]} >
       <View style={styles.header}>
         <Text style={styles.title}>{t('settings')}</Text>
       </View>
@@ -28,7 +32,6 @@ export default function SettingsScreen() {
       {/* Language Section */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Globe size={20} color={colors.primary} />
           <Text style={styles.sectionTitle}>{t('language')}</Text>
         </View>
         
@@ -39,8 +42,11 @@ export default function SettingsScreen() {
               style={[
                 styles.optionItem,
                 language === option.value && styles.selectedOption
+              
               ]}
-              onPress={() => setLanguage(option.value)}
+              onPress={() =>   {
+                setDirection(language == 'ar'?'rtl' :'ltr')
+                setLanguage(option.value)} }
               activeOpacity={0.7}
             >
               <Text style={[
@@ -50,7 +56,7 @@ export default function SettingsScreen() {
                 {option.label}
               </Text>
               {language === option.value && (
-                <Check size={20} color={colors.primary} />
+                <Check size={20} color={colors.text} />
               )}
             </TouchableOpacity>
           ))}
@@ -60,7 +66,7 @@ export default function SettingsScreen() {
       {/* Theme Section */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Palette size={20} color={colors.primary} />
+       
           <Text style={styles.sectionTitle}>{t('theme')}</Text>
         </View>
         
@@ -76,10 +82,10 @@ export default function SettingsScreen() {
               activeOpacity={0.7}
             >
               <View style={styles.themeOption}>
-                <View style={[
+                {/* <View style={[
                   styles.themePreview,
                   { backgroundColor: getThemePreviewColor(option.value) }
-                ]} />
+                ]} /> */}
                 <Text style={[
                   styles.optionText,
                   theme === option.value && styles.selectedOptionText
@@ -88,23 +94,15 @@ export default function SettingsScreen() {
                 </Text>
               </View>
               {theme === option.value && (
-                <Check size={20} color={colors.primary} />
+                <Check size={20} color={colors.text} />
               )}
             </TouchableOpacity>
           ))}
         </View>
       </View>
 
-      {/* Islamic Quote */}
-      <View style={styles.islamicQuote}>
-        <Text style={styles.quoteText}>
-          {t('quoteText')}
-        </Text>
-        <Text style={styles.quoteReference}>
-          {t('quoteReference')}
-        </Text>
-      </View>
-    </ScrollView>
+   
+    </SafeAreaView>
   );
 }
 
@@ -126,22 +124,28 @@ function createStyles(colors: any) {
     container: {
       flex: 1,
       backgroundColor: colors.background,
+     direction: colors.dir
+     
     },
     header: {
-      paddingTop: 60,
+      paddingTop: 40,
       paddingHorizontal: 20,
       paddingBottom: 30,
       backgroundColor: colors.surface,
       alignItems: 'center',
+      
+     
     },
     title: {
       fontSize: 28,
       fontWeight: '700',
       color: colors.text,
+  
     },
     section: {
       marginHorizontal: 20,
       marginBottom: 24,
+      paddingTop:30,
     },
     sectionHeader: {
       flexDirection: 'row',
@@ -152,7 +156,8 @@ function createStyles(colors: any) {
     sectionTitle: {
       fontSize: 18,
       fontWeight: '600',
-      color: colors.text,
+      color: colors.textSecondary,
+      
     },
     optionsContainer: {
       backgroundColor: colors.surface,
@@ -165,19 +170,18 @@ function createStyles(colors: any) {
       justifyContent: 'space-between',
       paddingHorizontal: 16,
       paddingVertical: 16,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.border,
+  
     },
     selectedOption: {
-      backgroundColor: colors.primary + '10',
+      backgroundColor:colors.background + 90,
     },
     optionText: {
       fontSize: 16,
-      color: colors.text,
+      color: colors.textSecondary,
       fontWeight: '500',
     },
     selectedOptionText: {
-      color: colors.primary,
+      color: colors.text,
       fontWeight: '600',
     },
     themeOption: {

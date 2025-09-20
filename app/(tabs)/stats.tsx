@@ -10,7 +10,7 @@ import { StatsCard } from '@/components/StatsCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function StatsScreen() {
-  const { colors, t } = useSettings();
+  const { colors, t, direction, setDirection } = useSettings();
 
   const [lastMonthTotal, setLastMonthTotal] = useState(0);
   const [averageDaily, setAverageDaily] = useState(0);
@@ -59,7 +59,7 @@ export default function StatsScreen() {
   const styles = createStyles(colors);
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={[styles.container,{ direction:direction}]} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <Text style={styles.title}>{t('statistics')}</Text>
         <Text style={styles.subtitle}>{t('yourJourney')}</Text>
@@ -113,12 +113,12 @@ export default function StatsScreen() {
       </View>
 
       <View style={styles.motivationSection}>
-        <View style={styles.motivationCard}>
+        {/* <View style={styles.motivationCard}>
           <Text style={styles.motivationTitle}>{t('keepGoing')}</Text>
           <Text style={styles.motivationText}>
             {t('motivationText')}
           </Text>
-        </View>
+        </View> */}
 
         <View style={styles.reminderCard}>
           <Text style={styles.reminderTitle}>{t('dailyGoal')}</Text>
@@ -141,6 +141,7 @@ function createStyles(colors: any) {
     container: {
       flex: 1,
       backgroundColor: colors.background,
+     
     },
     header: {
       paddingTop: 60,

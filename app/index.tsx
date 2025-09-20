@@ -6,11 +6,18 @@ import { Link, router, Stack } from 'expo-router';
 
 
 export default function index() {
-    const { colors, t } = useSettings();
+    const { colors, t , language, setLanguage, theme, direction } = useSettings();
+
+
+    console.log(language)
+    console.log(theme)
   return (
     <SafeAreaView style={{ flex: 1, padding: 20,  justifyContent: 'center', alignItems: 'center', backgroundColor:colors.background}}>
       <View style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor:colors.background}}>
+    { theme === "light" ?  
+     <Image source={require('../assets/logoLight.png')} style={{width:500, height:150, marginBottom:0}} />  :
      <Image source={require('../assets/logo.png')} style={{width:500, height:150, marginBottom:0}} />
+  }
         <Text style={{
           color:colors.text,
           fontSize:14,

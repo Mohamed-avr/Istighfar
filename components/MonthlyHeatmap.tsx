@@ -91,8 +91,9 @@ export function MonthlyHeatmap({ data, colors }: MonthlyHeatmapProps) {
                       {
                         backgroundColor: isCurrentMonth ? getIntensity(count) : themeColors.border,
                         opacity: isCurrentMonth ? 1 : 0.3,
-                        borderWidth: isToday ? 2 : 0,
+                        borderWidth: isToday ? 1: 0,
                         borderColor: isToday ? themeColors.primary : 'transparent',
+                       
                       },
                     ]}
                   >

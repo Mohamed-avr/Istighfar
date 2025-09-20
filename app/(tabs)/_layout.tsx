@@ -8,23 +8,21 @@ export default function TabLayout() {
   const { colors, t } = useSettings();
 
   return (
-    <SafeAreaView style={{ flex: 1,  backgroundColor:colors.background, height:"100%" }} edges={['right', 'bottom', 'left']}> 
+    <SafeAreaView style={{ flex: 1,  backgroundColor:colors.background }} edges={['right', 'bottom', 'left']}> 
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: colors.text,
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopColor: colors.background,
           borderTopWidth: 0,
-         
-         
-          width:"90%",
-          paddingTop:5,
-          bottom: 20,
-          height: 70,
-          borderRadius: 60,
+          // width:"90%",
+          paddingTop:10,
+          // bottom: 20,
+          height: 85,
+          // borderRadius: 60,         
           alignSelf: 'center',
           alignItems:"center",
           justifyContent:"center"
@@ -34,7 +32,7 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarLabel: t('home'),   // fixes the tab label
-          headerTitle: t('home'),
+     
           tabBarIcon: ({ size, color }) => (
             <House size={size} color={color} />
           ),
@@ -44,6 +42,7 @@ export default function TabLayout() {
         name="stats"
         options={{
           title: t('stats'),
+        
           tabBarIcon: ({ size, color }) => (
             <Activity size={size} color={color} />
           ),

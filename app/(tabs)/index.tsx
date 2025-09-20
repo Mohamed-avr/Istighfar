@@ -135,7 +135,7 @@ function createStyles(colors: any) {
     },
     subtitle: {
       fontSize: 18,
-      color: colors.textSecondary,
+      color: colors.text,
       fontWeight: '600',
       marginBottom: 8,
     },

@@ -23,7 +23,7 @@ export function StatsCard({ icon, title, value, subtitle, color }: StatsCardProp
      <View style={styles.cardStatsContainer}>
     
       <Text style={[styles.value, { color }]}>{value}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
+      {/* <Text style={styles.subtitle}>{subtitle}</Text> */}
      </View>
     </View>
   );
@@ -45,8 +45,8 @@ function createStyles(colors: any) {
     },
     iconContainer: {
       marginBottom: 8,
-      padding: 10,
-      gap:14,
+      padding: 12,
+      gap:10,
     
       borderRadius: 100,
     }, 

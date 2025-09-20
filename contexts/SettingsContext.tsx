@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// ------------------ Types ------------------
 export type Language = 'en' | 'ar';
 export type Theme = 'light' | 'dark' | 'islamic';
+export type Direction = 'ltr' | 'rtl';
 
 export interface ThemeColors {
   background: string;
@@ -17,14 +19,15 @@ export interface ThemeColors {
   error: string;
 }
 
+// ------------------ Themes ------------------
 const themes: Record<Theme, ThemeColors> = {
   light: {
-    background: '#F8FAFC',
+    background: '#F2F2F2',
     surface: '#FFFFFF',
     primary: '#22C55E',
     secondary: '#16A34A',
-    text: '#1F2937',
-    textSecondary: '#6B7280',
+    text: '#132932',
+    textSecondary: '#A5A6A7',
     border: '#E5E7EB',
     success: '#22C55E',
     warning: '#F59E0B',
@@ -43,19 +46,20 @@ const themes: Record<Theme, ThemeColors> = {
     error: '#EF4444',
   },
   islamic: {
-    background: '#FDF6EC',   // light cream (bright, high contrast base)
-    surface: '#FFFFFF',      // pure white for cards / elevated areas
-    primary: '#7B341E',      // rich dark brown (strong accent)
-    secondary: '#B45309',    // warm amber-brown for secondary highlights
-    text: '#3F1D0B',         // very dark brown (almost black) for readability
-    textSecondary: '#5C2E0E',// medium-dark brown for secondary text
-    border: '#E6D3B3',       // light sand beige for clear separation
-    success: '#15803D',      // Islamic green (contrast with browns)
-    warning: '#C2410C',      // strong burnt orange (alert, high visibility)
-    error: '#991B1B',        // deep red (error, easy to notice)
+    background: '#FDF6EC',
+    surface: '#FFFFFF',
+    primary: '#7B341E',
+    secondary: '#B45309',
+    text: '#3F1D0B',
+    textSecondary: '#5C2E0E',
+    border: '#E6D3B3',
+    success: '#15803D',
+    warning: '#C2410C',
+    error: '#991B1B',
   }
 };
 
+// ------------------ Translations ------------------
 const translations = {
   en: {
     home: 'Home',
@@ -119,20 +123,25 @@ const translations = {
   },
 };
 
+// ------------------ Context ------------------
 interface SettingsContextType {
   language: Language;
   theme: Theme;
   colors: ThemeColors;
+  direction: Direction;
   t: (key: keyof typeof translations.en) => string;
   setLanguage: (language: Language) => void;
   setTheme: (theme: Theme) => void;
+  setDirection: (direction: Direction) => void;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
+// ------------------ Provider ------------------
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en');
   const [theme, setThemeState] = useState<Theme>('dark');
+  const [direction, setDirectionState] = useState<Direction>('ltr');
 
   useEffect(() => {
     loadSettings();
@@ -142,12 +151,17 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     try {
       const savedLanguage = await AsyncStorage.getItem('app_language');
       const savedTheme = await AsyncStorage.getItem('app_theme');
-      
+      const savedDirection = await AsyncStorage.getItem('app_direction');
+
       if (savedLanguage) {
         setLanguageState(savedLanguage as Language);
+        setDirectionState(savedLanguage === 'ar' ? 'rtl' : 'ltr');
       }
       if (savedTheme) {
         setThemeState(savedTheme as Theme);
+      }
+      if (savedDirection) {
+        setDirectionState(savedDirection as Direction);
       }
     } catch (error) {
       console.error('Error loading settings:', error);
@@ -157,11 +171,25 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = async (newLanguage: Language) => {
     setLanguageState(newLanguage);
     await AsyncStorage.setItem('app_language', newLanguage);
+
+    // auto set direction based on language
+    if (newLanguage === 'ar') {
+      setDirectionState('rtl');
+      await AsyncStorage.setItem('app_direction', 'rtl');
+    } else {
+      setDirectionState('ltr');
+      await AsyncStorage.setItem('app_direction', 'ltr');
+    }
   };
 
   const setTheme = async (newTheme: Theme) => {
     setThemeState(newTheme);
     await AsyncStorage.setItem('app_theme', newTheme);
+  };
+
+  const setDirection = async (newDirection: Direction) => {
+    setDirectionState(newDirection);
+    await AsyncStorage.setItem('app_direction', newDirection);
   };
 
   const t = (key: keyof typeof translations.en): string => {
@@ -171,19 +199,24 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const colors = themes[theme];
 
   return (
-    <SettingsContext.Provider value={{
-      language,
-      theme,
-      colors,
-      t,
-      setLanguage,
-      setTheme,
-    }}>
+    <SettingsContext.Provider
+      value={{
+        language,
+        theme,
+        colors,
+        direction,
+        t,
+        setLanguage,
+        setTheme,
+        setDirection,
+      }}
+    >
       {children}
     </SettingsContext.Provider>
   );
 }
 
+// ------------------ Hook ------------------
 export function useSettings() {
   const context = useContext(SettingsContext);
   if (context === undefined) {
