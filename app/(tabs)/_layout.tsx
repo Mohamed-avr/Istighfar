@@ -8,7 +8,7 @@ export default function TabLayout() {
   const { colors, t } = useSettings();
 
   return (
-    <SafeAreaView style={{ flex: 1,  backgroundColor:"transparent" }} edges={['right', 'bottom', 'left']}> 
+    <SafeAreaView style={{ flex: 1,  backgroundColor:colors.background, height:"100%" }} edges={['right', 'bottom', 'left']}> 
     <Tabs
       screenOptions={{
         headerShown: false,
@@ -18,18 +18,17 @@ export default function TabLayout() {
           backgroundColor: colors.surface,
           borderTopColor: colors.background,
           borderTopWidth: 0,
-          position:"absolute",
-
-
-          left: '20%',
-          right: '20%',
+         
+         
+          width:"90%",
+          paddingTop:5,
           bottom: 20,
-          height: 60,
-          borderRadius: 30,
+          height: 70,
+          borderRadius: 60,
           alignSelf: 'center',
-        },
-
-      
+          alignItems:"center",
+          justifyContent:"center"
+        },      
       }}>
       <Tabs.Screen
         name="index"

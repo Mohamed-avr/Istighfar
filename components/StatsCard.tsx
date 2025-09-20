@@ -18,9 +18,10 @@ export function StatsCard({ icon, title, value, subtitle, color }: StatsCardProp
     <View style={[styles.card, { flex: 1 }]}>
       <View style={styles.iconContainer}>
         {icon}
+        <Text style={styles.title}>{title}</Text>
       </View>
      <View style={styles.cardStatsContainer}>
-     <Text style={styles.title}>{title}</Text>
+    
       <Text style={[styles.value, { color }]}>{value}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
      </View>
@@ -33,9 +34,10 @@ function createStyles(colors: any) {
     
     card: {
       backgroundColor: colors.surface,
-      padding: 16,
+      padding: 14,
       borderRadius: 12,
       alignItems: 'center',
+      justifyContent:"space-between",
    width: '100%', 
    flexDirection: 'row',
      
@@ -44,14 +46,14 @@ function createStyles(colors: any) {
     iconContainer: {
       marginBottom: 8,
       padding: 10,
-      backgroundColor: colors.background,
+      gap:14,
+    
       borderRadius: 100,
     }, 
 
     cardStatsContainer :{
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
     marginLeft: 10,
     marginRight: 10,
     }, 
