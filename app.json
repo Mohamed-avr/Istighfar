@@ -14,7 +14,43 @@
       "bundler": "metro",
       "output": "single"
     },
-    "plugins": ["expo-router", "expo-font", "expo-web-browser"],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/ReadexPro.ttf"
+          ],
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "Readex Pro",
+                "fontDefinitions": [
+                  {
+                    "path": "./src/assets/fonts/ReadexPro.ttf",
+                    "weight": 400
+                  },
+                  {
+                    "path": "./src/assets/fonts/ReadexPro.ttf",
+                    "weight": 500
+                  },
+                  {
+                    "path": "./src/assets/fonts/ReadexPro.ttf",
+                    "weight": 600
+                  },
+                  {
+                    "path": "./src/assets/fonts/ReadexPro.ttf",
+                    "weight": 800
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "expo-web-browser"
+    ],
     "experiments": {
       "typedRoutes": true
     }
