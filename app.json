@@ -28,22 +28,22 @@
           "android": {
             "fonts": [
               {
-                "fontFamily": "Readex Pro",
+                "fontFamily": "ReadexPro",
                 "fontDefinitions": [
                   {
-                    "path": "./src/assets/fonts/ReadexPro.ttf",
+                    "path": "./assets/fonts/ReadexPro.ttf",
                     "weight": 400
                   },
                   {
-                    "path": "./src/assets/fonts/ReadexPro.ttf",
+                    "path": "./assets/fonts/ReadexPro.ttf",
                     "weight": 500
                   },
                   {
-                    "path": "./src/assets/fonts/ReadexPro.ttf",
+                    "path": "./assets/fonts/ReadexPro.ttf",
                     "weight": 600
                   },
                   {
-                    "path": "./src/assets/fonts/ReadexPro.ttf",
+                    "path": "./assets/fonts/ReadexPro.ttf",
                     "weight": 800
                   }
                 ]
