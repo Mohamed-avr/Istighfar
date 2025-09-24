@@ -23,7 +23,7 @@
         "expo-font",
         {
           "fonts": [
-            "./src/assets/fonts/ReadexPro.ttf"
+            "./assets/fonts/ReadexPro.ttf"
           ],
           "android": {
             "fonts": [
