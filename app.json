@@ -7,6 +7,9 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "android": {
+      "package": "com.mohamed.istighfar"
+    },
     "ios": {
       "supportsTablet": true
     },
