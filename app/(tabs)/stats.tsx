@@ -10,7 +10,8 @@ import { StatsCard } from '@/components/StatsCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function StatsScreen() {
-  const { colors, t, direction, setDirection } = useSettings();
+  const { language, theme, colors, t, setLanguage, setTheme, direction, setDirection, fontArPrimary, fontsLoaded } = useSettings();
+
 
   const [lastMonthTotal, setLastMonthTotal] = useState(0);
   const [averageDaily, setAverageDaily] = useState(0);
@@ -61,13 +62,17 @@ export default function StatsScreen() {
   return (
     <ScrollView style={[styles.container,{ direction:direction}]} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <Text style={styles.title}>{t('statistics')}</Text>
-        <Text style={styles.subtitle}>{t('yourJourney')}</Text>
+        <Text style={[styles.title, {
+           fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }]}>{t('statistics')}</Text>
+        <Text style={[styles.subtitle, {
+           fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }]}>{t('yourJourney')}</Text>
       </View>
 
       <View style={styles.statsGrid}>
         <StatsCard
-          icon={<Calendar size={24} color={colors.primary} />}
+          icon={<Calendar size={24} color={colors.text} />}
           title={t('thisMonth')}
           value={monthlyTotal.toString()}
           subtitle={t('totalThisMonth')}
@@ -75,7 +80,7 @@ export default function StatsScreen() {
         />
         
         <StatsCard
-          icon={<Award size={24} color={colors.warning} />}
+          icon={<Award size={24} color={colors.text} />}
           title={t('thisYear')}
           value={yearlyTotal.toString()}
           subtitle={t('totalThisYear')}
@@ -83,33 +88,40 @@ export default function StatsScreen() {
         />
 
         <StatsCard
-          icon={<TrendingUp size={24} color={colors.secondary} />}
-          title="Last Month"
+          icon={<TrendingUp size={24} color={colors.text} />}
+          title={t('lastMonth')}
           value={lastMonthTotal.toString()}
-          subtitle="previous month"
+          subtitle={t('lastMonth')}
           color={colors.secondary}
         />
         
         <StatsCard
-          icon={<Target size={24} color={colors.error} />}
-          title="Daily Average"
+          icon={<Target size={24} color={colors.text}  />}
+          title={t('dailyAverage')}
           value={averageDaily.toString()}
-          subtitle="this month"
+          subtitle={t('dailyAverage')}
           color={colors.error}
               />
       </View>
 
   {/* Monthly Progress */}
   <View style={styles.progressSection}>
-        <Text style={styles.sectionTitle}>{t('monthsProgress')}</Text>
+        <Text style={[styles.sectionTitle,  {
+           fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+           
+        }]}>{t('monthsProgress')}</Text>
         <MonthlyHeatmap data={heatmapData} colors={colors} />
       </View>
 
       <View style={styles.islamicQuote}>
-        <Text style={styles.quoteText}>
+        <Text style={[styles.quoteText, {
+           fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }]}>
           {t('quoteText')}
         </Text>
-        <Text style={styles.quoteReference}>{t('quoteReference')}</Text>
+        <Text style={[styles.quoteReference, {
+           fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }]}>{t('quoteReference')}</Text>
       </View>
 
       <View style={styles.motivationSection}>
@@ -121,8 +133,10 @@ export default function StatsScreen() {
         </View> */}
 
         <View style={styles.reminderCard}>
-          <Text style={styles.reminderTitle}>{t('dailyGoal')}</Text>
-          <Text style={styles.reminderText}>
+          <Text style={[styles.reminderTitle , { fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }]}>{t('dailyGoal')}</Text>
+          <Text style={[styles.reminderText, { fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }]}>
             {t('dailyGoalText')}
           </Text>
         </View>

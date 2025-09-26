@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CircleDashed, House,Settings2 ,Activity} from 'lucide-react-native';
 
 export default function TabLayout() {
-  const { colors, t } = useSettings();
+  const { colors, t , fontArPrimary, fontsLoaded, direction, setDirection, language } = useSettings();
 
   return (
     <SafeAreaView style={{ flex: 1,  backgroundColor:colors.background }} edges={['right', 'bottom', 'left']}> 
@@ -26,13 +26,19 @@ export default function TabLayout() {
           alignSelf: 'center',
           alignItems:"center",
           justifyContent:"center"
-        },      
+        },     
+        
+        tabBarLabelStyle:{
+          fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }
       }}>
       <Tabs.Screen
         name="index"
+      
         options={{
-          tabBarLabel: t('home'),   // fixes the tab label
-     
+          tabBarLabel: t('home'), 
+          // fixes the tab label
+    
           tabBarIcon: ({ size, color }) => (
             <House size={size} color={color} />
           ),

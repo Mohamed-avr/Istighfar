@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSettings, Language, Theme } from '@/contexts/SettingsContext';
 
 export default function SettingsScreen() {
-  const { language, theme, colors, t, setLanguage, setTheme, direction, setDirection } = useSettings();
+  const { language, theme, colors, t, setLanguage, setTheme, direction, fontArPrimary, setDirection } = useSettings();
 
 
   const languageOptions: { value: Language; label: string }[] = [
@@ -26,13 +26,15 @@ export default function SettingsScreen() {
       direction: direction,
     }]} >
       <View style={styles.header}>
-        <Text style={styles.title}>{t('settings')}</Text>
+        <Text style={[styles.title,
+{  fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter'}
+         ]}>{t('settings')}</Text>
       </View>
 
       {/* Language Section */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{t('language')}</Text>
+          <Text style={[styles.sectionTitle, {  fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter'}]}>{t('language')}</Text>
         </View>
         
         <View style={styles.optionsContainer}>
@@ -52,6 +54,7 @@ export default function SettingsScreen() {
               <Text style={[
                 styles.optionText,
                 language === option.value && styles.selectedOptionText
+                , {  fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter'}
               ]}>
                 {option.label}
               </Text>
@@ -67,7 +70,7 @@ export default function SettingsScreen() {
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
        
-          <Text style={styles.sectionTitle}>{t('theme')}</Text>
+          <Text style={[styles.sectionTitle, {  fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter'}]}>{t('theme')}</Text>
         </View>
         
         <View style={styles.optionsContainer}>
@@ -88,7 +91,8 @@ export default function SettingsScreen() {
                 ]} /> */}
                 <Text style={[
                   styles.optionText,
-                  theme === option.value && styles.selectedOptionText
+                  theme === option.value && styles.selectedOptionText ,
+                  , {  fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter'}
                 ]}>
                   {option.label}
                 </Text>
@@ -140,7 +144,6 @@ function createStyles(colors: any) {
       fontSize: 28,
       fontWeight: '700',
       color: colors.text,
-  
     },
     section: {
       marginHorizontal: 20,

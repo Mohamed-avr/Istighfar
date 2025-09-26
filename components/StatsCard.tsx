@@ -11,18 +11,20 @@ interface StatsCardProps {
 }
 
 export function StatsCard({ icon, title, value, subtitle, color }: StatsCardProps) {
-  const { colors } = useSettings();
+  const { colors, fontArPrimary, fontsLoaded, t, language, direction,setDirection } = useSettings();
   const styles = createStyles(colors);
 
   return (
     <View style={[styles.card, { flex: 1 }]}>
       <View style={styles.iconContainer}>
         {icon}
-        <Text style={styles.title}>{title}</Text>
+        <Text style={[styles.title, { fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }]}>{title}</Text>
       </View>
      <View style={styles.cardStatsContainer}>
     
-      <Text style={[styles.value, { color }]}>{value}</Text>
+      <Text style={[styles.value, { fontFamily: direction === 'rtl' ?  fontArPrimary : 'inter',
+        }]}>{value}</Text>
       {/* <Text style={styles.subtitle}>{subtitle}</Text> */}
      </View>
     </View>
@@ -38,15 +40,16 @@ function createStyles(colors: any) {
       borderRadius: 12,
       alignItems: 'center',
       justifyContent:"space-between",
-   width: '100%', 
+      width: '100%', 
    flexDirection: 'row',
      
     
     },
     iconContainer: {
       marginBottom: 8,
-      padding: 12,
-      gap:10,
+      padding: 8,
+paddingBottom:2,
+      gap:20,
     
       borderRadius: 100,
     }, 
@@ -69,6 +72,7 @@ function createStyles(colors: any) {
       fontSize: 24,
       fontWeight: '800',
       marginBottom: 2,
+      color: colors.text,
     },
     subtitle: {
       fontSize: 11,

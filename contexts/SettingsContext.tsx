@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+
+SplashScreen.preventAutoHideAsync();
 
 // ------------------ Types ------------------
 export type Language = 'en' | 'ar';
@@ -62,6 +67,8 @@ const themes: Record<Theme, ThemeColors> = {
 // ------------------ Translations ------------------
 const translations = {
   en: {
+    welcometoIstighfarApp: 'Welcome to Istighfar App',
+    starter:'Start now',
     home: 'Home',
     counter: 'Counter',
     stats: 'Stats',
@@ -76,8 +83,8 @@ const translations = {
     istighfarDashboard: 'Istighfar Dashboard',
     keepGoing: 'Keep Going!',
     motivationText: 'Every istighfar brings you closer to Allah\'s mercy and forgiveness. Consistency is key to spiritual growth.',
-    quoteText: '"And seek forgiveness of Allah. Indeed, Allah is Forgiving and Merciful."',
-    quoteReference: '- Quran 4:106',
+    quoteText: '{أَفَلاَ يَتُوبُونَ إِلَى اللّهِ وَيَسْتَغْفِرُونَهُ وَاللّهُ غَفُورٌ رَّحِيمٌ}',
+    quoteReference: 'المائدة 74',
     statistics: 'Statistics',
     yourJourney: 'Your Istighfar Journey',
     language: 'Language',
@@ -89,9 +96,13 @@ const translations = {
     islamicTheme: 'Islamic Green',
     monthsProgress: "This Month's Progress",
     dailyGoal: 'Daily Goal',
+    dailyAverage:'Daily average',
+    lastMonth:'last month',
     dailyGoalText: 'Try to reach 1000 istighfar daily to unlock the green progress indicator!',
   },
   ar: {
+    welcometoIstighfarApp: 'مرحبًا بك في تطبيق الاستغفار',
+    starter:'إبدأ الان',
     home: 'الرئيسية',
     counter: 'عداد',
     stats: 'الإحصائيات',
@@ -106,8 +117,8 @@ const translations = {
     istighfarDashboard: 'لوحة الاستغفار',
     keepGoing: 'استمر!',
     motivationText: 'كل استغفار يقربك من رحمة الله ومغفرته. الاستمرارية هي مفتاح النمو الروحي.',
-    quoteText: '"واستغفروا الله إن الله غفور رحيم"',
-    quoteReference: '- القرآن 4:106',
+    quoteText: '{أَفَلاَ يَتُوبُونَ إِلَى اللّهِ وَيَسْتَغْفِرُونَهُ وَاللّهُ غَفُورٌ رَّحِيمٌ}',
+    quoteReference: 'المائدة 74',
     statistics: 'الإحصائيات',
     yourJourney: 'رحلة الاستغفار',
     language: 'اللغة',
@@ -119,6 +130,8 @@ const translations = {
     islamicTheme: 'أخضر إسلامي',
     monthsProgress: 'تقدم هذا الشهر',
     dailyGoal: 'الهدف اليومي',
+    dailyAverage:'التقريب اليومي',
+    lastMonth:'أخر شهر',
     dailyGoalText: 'حاول الوصول إلى 1000 استغفار يومياً لفتح مؤشر التقدم الأخضر!',
   },
 };
@@ -133,6 +146,9 @@ interface SettingsContextType {
   setLanguage: (language: Language) => void;
   setTheme: (theme: Theme) => void;
   setDirection: (direction: Direction) => void;
+  // ✅ New
+  fontsLoaded: boolean;
+  fontArPrimary: string;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -146,6 +162,16 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     loadSettings();
   }, []);
+
+  const [fontsLoaded, fontError] = useFonts({
+    'ReadexPro': require('../assets/fonts/ReadexPro.ttf'),
+  });
+  useEffect(() => {
+    if (fontsLoaded || fontError  ) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
 
   const loadSettings = async () => {
     try {
@@ -198,6 +224,10 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   const colors = themes[theme];
 
+  if (!fontsLoaded) {
+    return null; // or a loading spinner
+  } 
+
   return (
     <SettingsContext.Provider
       value={{
@@ -209,6 +239,8 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
         setLanguage,
         setTheme,
         setDirection,
+        fontsLoaded: true, 
+        fontArPrimary: 'ReadexPro', 
       }}
     >
       {children}

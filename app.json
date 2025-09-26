@@ -26,6 +26,10 @@
             "./assets/fonts/ReadexPro.ttf"
           ],
           "android": {
+            "adaptiveIcon": {
+              "foregroundImage": "./assets/adaptive-icon.png",
+              "backgroundColor": "#222"
+            },
             "fonts": [
               {
                 "fontFamily": "ReadexPro",
