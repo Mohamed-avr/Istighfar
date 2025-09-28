@@ -13,7 +13,7 @@ export default function index() {
       <View style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor:colors.background}}>
     { theme === "light" ?  
      <Image source={require('../assets/logoLight.png')} style={{width:500, height:150, marginBottom:0}} />  :
-     <Image source={require('../assets/logo.png')} style={{width:500, height:150, marginBottom:0}} />
+     <Image source={require('../assets/logoDark.png')} style={{width:500, height:150, marginBottom:0}} />
   }
         <Text style={{
           color:colors.text,

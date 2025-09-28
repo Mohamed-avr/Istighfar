@@ -9,7 +9,7 @@ export default function RootLayout() {
 
   return (
     <SettingsProvider>
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack  screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
       </Stack>
       <StatusBar style="auto" />

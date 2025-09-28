@@ -1,4 +1,5 @@
 {
+  
   "expo": {
     "name": "Istighfar",
     "slug": "Istighfar",
@@ -7,16 +8,29 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+"icon": "./assets/icon.png",
+"splash": {
+  "image": "./assets/splash.png",
+  "resizeMode": "contain",
+  "backgroundColor": "#0B0C0C"
+},
     "android": {
-      "package": "com.mohamed.istighfar"
+      "package": "com.mohamed.istighfar",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0B0C0C"
+      }
     },
+
     "ios": {
       "supportsTablet": true
     },
+
     "web": {
       "bundler": "metro",
       "output": "single"
     },
+
     "plugins": [
       "expo-router",
       [
@@ -24,36 +38,7 @@
         {
           "fonts": [
             "./assets/fonts/ReadexPro.ttf"
-          ],
-          "android": {
-            "adaptiveIcon": {
-              "foregroundImage": "./assets/adaptive-icon.png",
-              "backgroundColor": "#222"
-            },
-            "fonts": [
-              {
-                "fontFamily": "ReadexPro",
-                "fontDefinitions": [
-                  {
-                    "path": "./assets/fonts/ReadexPro.ttf",
-                    "weight": 400
-                  },
-                  {
-                    "path": "./assets/fonts/ReadexPro.ttf",
-                    "weight": 500
-                  },
-                  {
-                    "path": "./assets/fonts/ReadexPro.ttf",
-                    "weight": 600
-                  },
-                  {
-                    "path": "./assets/fonts/ReadexPro.ttf",
-                    "weight": 800
-                  }
-                ]
-              }
-            ]
-          }
+          ]
         }
       ],
       "expo-web-browser"
@@ -69,3 +54,6 @@
     }
   }
 }
+
+ 
+

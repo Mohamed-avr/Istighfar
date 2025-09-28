@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { View, ActivityIndicator } from 'react-native';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -224,9 +225,14 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   const colors = themes[theme];
 
-  if (!fontsLoaded) {
-    return null; // or a loading spinner
-  } 
+  useEffect(() => {
+    async function hideSplash() {
+      if (fontsLoaded || fontError) {
+        await SplashScreen.hideAsync();
+      }
+    }
+    hideSplash();
+  }, [fontsLoaded, fontError]);
 
   return (
     <SettingsContext.Provider
@@ -239,11 +245,17 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
         setLanguage,
         setTheme,
         setDirection,
-        fontsLoaded: true, 
+        fontsLoaded,
         fontArPrimary: 'ReadexPro', 
       }}
     >
-      {children}
+     {!fontsLoaded ? (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
+        <ActivityIndicator size="large" color="#22C55E" />
+      </View>
+    ) : (
+      children
+    )}
     </SettingsContext.Provider>
   );
 }
