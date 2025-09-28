@@ -32,7 +32,7 @@ const themes: Record<Theme, ThemeColors> = {
     surface: '#FFFFFF',
     primary: '#22C55E',
     secondary: '#16A34A',
-    text: '#132932',
+    text: '#151718',
     textSecondary: '#A5A6A7',
     border: '#E5E7EB',
     success: '#22C55E',
@@ -251,7 +251,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     >
      {!fontsLoaded ? (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
-        <ActivityIndicator size="large" color="#22C55E" />
+        <ActivityIndicator size="large" color="#111" />
       </View>
     ) : (
       children
