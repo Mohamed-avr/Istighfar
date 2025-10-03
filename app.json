@@ -3,7 +3,7 @@
   "expo": {
     "name": "Istighfar",
     "slug": "Istighfar",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -15,6 +15,7 @@
   "backgroundColor": "#0B0C0C"
 },
     "android": {
+      "versionCode": 8,
       "package": "com.mohamed.istighfar",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
